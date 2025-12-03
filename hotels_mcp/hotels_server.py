@@ -41,6 +41,18 @@ if not RAPIDAPI_KEY:
     sys.exit(1)
 
 # ======================================================================
+#   HEALTH CHECK ENDPOINT
+# ======================================================================
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for monitoring and load balancers."""
+    return {
+        "status": "healthy",
+        "service": "hotels-mcp-server",
+        "rapidapi_configured": bool(RAPIDAPI_KEY)
+    }
+
+# ======================================================================
 #   ASYNC REQUEST HELPER (kept same signature; only URL structure fixed)
 # ======================================================================
 async def make_rapidapi_request(endpoint: str, params: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
@@ -213,7 +225,8 @@ def main():
     )
 
 
-app = mcp.streamable_http_app()
+# Note: app is already defined above with FastAPI() and MCP mounted at /mcp
+# The health endpoint is added to that app above
 print([route.path for route in app.routes])
 
 if __name__ == "__main__":
