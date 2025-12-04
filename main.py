@@ -12,3 +12,5 @@ print("Import successful!")
 #if __name__ == "__main__":
 #    print("Starting main function...")
 #    sys.exit(main()) 
+
+from hotels_mcp.hotels_server import app
