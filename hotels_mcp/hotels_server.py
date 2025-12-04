@@ -18,7 +18,7 @@ mcp = FastMCP("hotels")
 
 # Mount Streamable HTTP App
 app = FastAPI()
-app.mount("/mcp", mcp.streamable_http_app)
+app.mount("/mcp", mcp.streamable_http_app())
 
 # Configure logging
 logging.basicConfig(
